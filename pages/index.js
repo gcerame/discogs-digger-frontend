@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import {useState} from "react";
 import Release from "../components/release";
+import {Button, Container, Heading, Input} from "@chakra-ui/react";
 
 function Header () {
     return (
@@ -51,31 +52,29 @@ export default function Home () {
             <Header/>
 
             <main>
-                <h1>
+                <Heading>
                     Welcome to <span>discogs-digger</span>
-                </h1>
+                </Heading>
                 <div className="search-form">
                     <form onSubmit={handleSubmit}>
-                        <div className="form--inputs">
 
-                            <input className="form--input" placeholder="Style" id="style" name="style"
-                                   aria-label="style"></input>
-                            <input className="form--input" placeholder="Year" id="year" name="year"
-                                   aria-label="year"></input>
-                            <input className="form--input" placeholder="Label" id="label" name="label"
-                                   aria-label="label"></input>
-                            <input className="form--input" placeholder="Country" id="country" name="country"
-                                   aria-label="country"></input>
-                            <input className="form--input" placeholder="Artist" id="artist" name="artist"
-                                   aria-label="artist"></input>
-                            <button type="submit">Search</button>
-                        </div>
+                            <Input maxW={250} size="sm" placeholder="Style" id="style" name="style"
+                                   aria-label="style"></Input>
+                            <Input maxW={250} size="sm" placeholder="Year" id="year" name="year"
+                                   aria-label="year"></Input>
+                            <Input maxW={250} size="sm" placeholder="Label" id="label" name="label"
+                                   aria-label="label"></Input>
+                            <Input maxW={250} size="sm" placeholder="Country" id="country" name="country"
+                                   aria-label="country"></Input>
+                            <Input maxW={250} size="sm" placeholder="Artist" id="artist" name="artist"
+                                   aria-label="artist"></Input>
+                            <Button type="submit">Search</Button>
 
                     </form>
                 </div>
-                <div className="releases--container">
+                <Container centerContent>
                     {mapReleasesToComponent()}
-                </div>
+                </Container>
             </main>
         </>);
 }
