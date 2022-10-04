@@ -2,6 +2,7 @@ import Image from "next/image";
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 import ReleaseVideos from "./releaseVideos";
 import { Container, Heading } from "@chakra-ui/react";
+import Link from "next/link";
 
 export default function Release ({ release }) {
 
@@ -11,6 +12,9 @@ export default function Release ({ release }) {
             <p>{release.year}</p>
             {release.image && <Image src={release.image} width={50} height={50} objectFit="none" alt="release cover"/>}
             {release.videos && <ReleaseVideos videos={release.videos} releaseTitle={release.title}/>}
+            <p>Want: {release.want} Have: {release.have}</p>
+            <p>For sale: {release.forSale}</p>
+            <Link href={release.discogsURL}>Go to discogs</Link>
         </Container>
     );
 }
