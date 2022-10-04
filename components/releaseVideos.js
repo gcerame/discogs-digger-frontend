@@ -1,3 +1,8 @@
+/*
+    TODO:
+        - Show wants/haves, for sale and avg price
+ */
+
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 

@@ -1,3 +1,9 @@
+/*
+    TODO:
+     - Move form to component
+     - Show errors in UI (Empty search params for example)
+     - If query is empty it should return early and not call the backend
+*/
 import { useState } from "react";
 import Release from "../components/release";
 import { Button, Container, Flex, Input } from "@chakra-ui/react";
