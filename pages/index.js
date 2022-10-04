@@ -1,7 +1,9 @@
 /*
     TODO:
      - Move form to component
-     - Show errors in UI (Empty search params for example)
+     - Show errors in UI
+        *Empty search params
+        *Errors from backend
      - If query is empty it should return early and not call the backend
 */
 import { useState } from "react";
@@ -19,7 +21,10 @@ export default function Home () {
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
 
-        if (Object.values(data).every(x => x === '')) console.log('Empty search params');
+        if (Object.values(data).every(x => x === '')) {
+            setError({ message: 'Please enter search parameters' });
+            return;
+        }
 
         Object.keys(data).forEach((key) => data[key] === '' && delete data[key]);
         const searchQuery = new URLSearchParams(data).toString();
@@ -28,6 +33,10 @@ export default function Home () {
             const APIURL = `http://localhost:3001/search/?${searchQuery}`;
             const response = await fetch(APIURL);
             const fetchedReleases = await response.json();
+            if(fetchedReleases.error) {
+                setError(fetchedReleases);
+                return;
+            }
             setReleases(fetchedReleases);
 
         } catch (e) {
@@ -80,7 +89,7 @@ export default function Home () {
                     </form>
                 </div>
                 <Container centerContent>
-                    {mapReleasesToComponent()}
+                    { error!==null ? <p>{error.message}</p> : mapReleasesToComponent() }
                 </Container>
             </main>
         </>);
