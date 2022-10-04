@@ -1,25 +1,28 @@
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import {Box, Container, Tab, TabList, TabPanel, TabPanels, Tabs} from "@chakra-ui/react";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
-export default function ReleaseVideos ({videos,releaseTitle}) {
+export default function ReleaseVideos ({ videos, releaseTitle }) {
 
-    return(
+    return (
         <Tabs>
             <TabList>
-                {videos?.map((video, index)=>{
+                {videos?.map((video, index) => {
                     return (
-                        <Tab>Video{index+1}</Tab>
-                    )
+                        <Tab key={index}>Video{index + 1}</Tab>
+                    );
                 })}
             </TabList>
 
             <TabPanels>
                 {videos?.map((video) => {
+                    const videoID = video.uri.split('v=').pop();
                     return (
-                        <TabPanel>
-                        <Box padding={4}><LiteYouTubeEmbed id={video.uri.split('v=').pop()}
-                                                           key={video.uri}
-                                                           title={releaseTitle}/></Box>
+                        <TabPanel key={videoID}>
+                            <Box padding={4}>
+                                <LiteYouTubeEmbed id={videoID}
+                                    key={videoID}
+                                    title={releaseTitle}/>
+                            </Box>
                         </TabPanel>
 
                     );
@@ -29,6 +32,5 @@ export default function ReleaseVideos ({videos,releaseTitle}) {
         </Tabs>
 
 
-
-    )
+    );
 }

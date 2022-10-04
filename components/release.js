@@ -1,7 +1,7 @@
 import Image from "next/image";
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 import ReleaseVideos from "./releaseVideos";
-import {Container, Heading} from "@chakra-ui/react";
+import { Container, Heading } from "@chakra-ui/react";
 
 export default function Release ({ release }) {
 

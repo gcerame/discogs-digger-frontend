@@ -1,3 +1,9 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "space-before-function-paren": ["error", "always"],
+    "object-curly-spacing": ["error", "always"],
+    "indent": ["error", 4],
+    "max-len": ["error", 120]
+  }
 }
