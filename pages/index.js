@@ -1,21 +1,29 @@
-/*
-    TODO:
-     - Move form to component
-     - Show errors in UI
-        *Empty search params
-        *Errors from backend
-     - If query is empty it should return early and not call the backend
-*/
 import { useState } from "react";
 import Release from "../components/release";
-import { Button, Container, Flex, Input } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import { Header } from "../components/header";
+import SearchForm from "../components/searchForm";
 
 export default function Home () {
     const [releases, setReleases] = useState([]);
     const [error, setError] = useState(null);
 
-    const handleSubmit = async (e) => {
+    const fetchData = async (searchQuery) =>{
+        try {
+            const APIURL = `http://localhost:3001/search/?${searchQuery}`;
+            const response = await fetch(APIURL);
+            const fetchedReleases = await response.json();
+            if(fetchedReleases.error) {
+                setError(fetchedReleases);
+                return;
+            }
+            setReleases(fetchedReleases);
+        } catch (e) {
+            setError(e);
+        }
+    }
+
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
@@ -28,20 +36,8 @@ export default function Home () {
 
         Object.keys(data).forEach((key) => data[key] === '' && delete data[key]);
         const searchQuery = new URLSearchParams(data).toString();
+        await fetchData(searchQuery);
 
-        try {
-            const APIURL = `http://localhost:3001/search/?${searchQuery}`;
-            const response = await fetch(APIURL);
-            const fetchedReleases = await response.json();
-            if(fetchedReleases.error) {
-                setError(fetchedReleases);
-                return;
-            }
-            setReleases(fetchedReleases);
-
-        } catch (e) {
-            setError(e);
-        }
     };
 
     const mapReleasesToComponent = () => {
@@ -61,33 +57,7 @@ export default function Home () {
 
             <main>
                 <Header/>
-                <div className="search-form">
-                    <form onSubmit={handleSubmit}>
-                        <Flex wrap="wrap" justify="center">
-                            <Input minW={175} maxW={200} size="sm" placeholder="Style"
-                                id="style"
-                                name="style"
-                                aria-label="style"/>
-                            <Input minW={175} maxW={200} size="sm" placeholder="Year"
-                                id="year"
-                                name="year"
-                                aria-label="year"/>
-                            <Input minW={175} maxW={200} size="sm" placeholder="Label"
-                                id="label"
-                                name="label"
-                                aria-label="label"/>
-                            <Input minW={175} maxW={200} size="sm" placeholder="Country"
-                                id="country"
-                                name="country"
-                                aria-label="country"/>
-                            <Input minW={175} maxW={200} size="sm" placeholder="Artist"
-                                id="artist"
-                                name="artist"
-                                aria-label="artist"/>
-                            <Button type="submit">Search</Button></Flex>
-
-                    </form>
-                </div>
+                <SearchForm handleSubmit={handleFormSubmit}/>
                 <Container centerContent>
                     { error!==null ? <p>{error.message}</p> : mapReleasesToComponent() }
                 </Container>
