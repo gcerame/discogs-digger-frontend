@@ -28,7 +28,7 @@ export default function Release ({ release }) {
 
             </Flex>
             {release.image &&
-                <Image src={release.image} width="80%" height="80%" objectFit="none" alt="release cover"/>}
+                <Image src={release.image} width="100%" height="80%" objectFit="none" alt="release cover"/>}
             <Spacer/>
 
             {release.videos ?
