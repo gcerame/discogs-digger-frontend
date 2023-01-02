@@ -1,27 +1,30 @@
 import { useState } from "react";
 import Release from "../components/release";
-import { Container } from "@chakra-ui/react";
 import { Header } from "../components/header";
 import SearchForm from "../components/searchForm";
+import { Container } from "@chakra-ui/react";
+
 
 export default function Home () {
     const [releases, setReleases] = useState([]);
     const [error, setError] = useState(null);
+    const [pagination, setPagination] = useState({});
 
-    const fetchData = async (searchQuery) =>{
+    const fetchData = async (searchQuery) => {
         try {
-            const APIURL = `http://localhost:3001/search/?${searchQuery}`;
+            const APIURL = `http://192.168.1.33:3001/search/?${searchQuery}`;
             const response = await fetch(APIURL);
-            const fetchedReleases = await response.json();
-            if(fetchedReleases.error) {
-                setError(fetchedReleases);
+            const searchResults = await response.json();
+            if (searchResults.error) {
+                setError(searchResults);
                 return;
             }
-            setReleases(fetchedReleases);
+            setPagination(searchResults.pagination);
+            setReleases(searchResults.releases);
         } catch (e) {
             setError(e);
         }
-    }
+    };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -58,8 +61,8 @@ export default function Home () {
             <main>
                 <Header/>
                 <SearchForm handleSubmit={handleFormSubmit}/>
-                <Container centerContent>
-                    { error!==null ? <p>{error.message}</p> : mapReleasesToComponent() }
+                <Container centerContent w="100%">
+                    {error !== null ? <p>{error.message}</p> : mapReleasesToComponent()}
                 </Container>
             </main>
         </>);

@@ -25,6 +25,10 @@ export default function SearchForm ({ handleSubmit }) {
                         id="artist"
                         name="artist"
                         aria-label="artist"/>
+                    <Input minW={175} maxW={200} size="sm" placeholder="Page"
+                        id="page"
+                        name="page"
+                        aria-label="page"/>
                     <Button type="submit">Search</Button></Flex>
 
             </form>
