@@ -12,7 +12,7 @@ export default function Home () {
 
     const fetchData = async (searchQuery) => {
         try {
-            const APIURL = `http://192.168.1.33:3001/search/?${searchQuery}`;
+            const APIURL = `http://localhost:3001/search/?${searchQuery}`;
             const response = await fetch(APIURL);
             const searchResults = await response.json();
             if (searchResults.error) {
