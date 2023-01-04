@@ -7,18 +7,10 @@ import Link from "next/link";
 export default function Release ({ release }) {
 
     return (
-        <Flex className="release" bg="gray.600" color="white"
-            padding={8}
-            border="1px"
-            gap = {8}
-            borderRadius="10px"
-            flexDirection="column">
-            <Flex  gap={6} flexDirection="column">
-                <Spacer/>
-
-                <Heading as="i">{release.title}</Heading>
-
-                <Heading size="md">{release.artists[0].name}</Heading>
+        <div className="bg-slate-300 p-8 border-1 border-black">
+            <div className="flex flex-col"  gap={6} flexDirection="column">
+                <span className="italic text-xl">{release.title}</span>
+                <span className="text-lg">{release.artists[0].name}</span>
                 <p>Want: {release.want} Have: {release.have}</p>
                 <p>For sale: {release.forSale}</p>
                 <Link href={release.discogsURL}>Go to discogs</Link>
@@ -26,7 +18,7 @@ export default function Release ({ release }) {
                 <Spacer/>
 
 
-            </Flex>
+            </div>
             {release.image &&
                 <Image src={release.image} width="100%" height="80%" objectFit="none" alt="release cover"/>}
             <Spacer/>
@@ -36,7 +28,7 @@ export default function Release ({ release }) {
                 :
                 <p>There are no videos for this release.</p>
             }
-        </Flex>
+        </div>
     );
 }
 

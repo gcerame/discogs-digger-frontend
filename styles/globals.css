@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
 html,
 body {
   padding: 0;
@@ -17,7 +22,7 @@ body {
     width: min(50vw, 500px);
 }
 
-/* gradient */
+!* gradient *!
 .yt-lite::before {
   content: '';
   display: block;
@@ -32,9 +37,9 @@ body {
   transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
 
-/* responsive iframe with a 16:9 aspect ratio
+!* responsive iframe with a 16:9 aspect ratio
     thanks https://css-tricks.com/responsive-iframes/
-*/
+*!
 .yt-lite::after {
   content: "";
   display: block;
@@ -48,21 +53,21 @@ body {
   left: 0;
 }
 
-/* play button */
+!* play button *!
 .yt-lite > .lty-playbtn {
   width: 70px;
   height: 46px;
   background-color: #212121;
   z-index: 1;
   opacity: 0.8;
-  border-radius: 14%; /* TODO: Consider replacing this with YT's actual svg. Eh. */
+  border-radius: 14%; !* TODO: Consider replacing this with YT's actual svg. Eh. *!
   transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
 .yt-lite:hover > .lty-playbtn {
   background-color: #f00;
   opacity: 1;
 }
-/* play button triangle */
+!* play button triangle *!
 .yt-lite > .lty-playbtn:before {
   content: '';
   border-style: solid;
@@ -78,7 +83,7 @@ body {
   transform: translate3d(-50%, -50%, 0);
 }
 
-/* Post-click styles */
+!* Post-click styles *!
 .yt-lite.lyt-activated {
   cursor: unset;
 }
@@ -86,4 +91,4 @@ body {
 .yt-lite.lyt-activated > .lty-playbtn {
   opacity: 0;
   pointer-events: none;
-}
+}*/

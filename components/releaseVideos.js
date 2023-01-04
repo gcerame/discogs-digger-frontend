@@ -14,19 +14,21 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
     };
 
     return (
-        <Box>
+        <div className="grid">
             {videos?.map((video, index) => {
                 if (index !== currentVideo) return null;
                 const videoID = video.uri.split('v=').pop();
                 return (
-                    <Box padding={2} w="100%">
+                    <div className="bg-slate-800">
                         <LiteYouTubeEmbed wrapperClass="yt-lite"  playerClass="lty-playbtn" id={videoID} key={videoID} title={releaseTitle} />
-                    </Box>
+                    </div>
                 );
             })}
             Video {currentVideo + 1} of {videos.length}
-            <Button onClick={handlePrevious}>Previous</Button>
-            <Button onClick={handleNext}>Next</Button>
-        </Box>
+            <button className="bg-slate-500 drop-shadow-lg focus:ring hover:ring transition-all active:transform
+                    active:translate-y-1" onClick={handlePrevious}>Previous</button>
+            <button className="bg-slate-500 drop-shadow-lg focus:ring hover:ring transition-all active:transform
+                    active:translate-y-1" onClick={handleNext}>Next</button>
+        </div>
     );
 }
