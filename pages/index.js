@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import Release from "../components/release";
 import { Header } from "../components/header";
 import SearchForm from "../components/searchForm";
+import { Martian_Mono } from "@next/font/google";
 import Link from "next/link";
-
+const martianMono = Martian_Mono({ subsets: ["latin"] });
 
 export default function Home () {
     const [formData, setFormData] = useState({});
@@ -17,6 +18,7 @@ export default function Home () {
             setFormData(savedFormData);
         }
     }, []);
+
     const fetchData = async (searchQuery) => {
         try {
             const APIURL = `http://localhost:3001/search/?${searchQuery}`;
@@ -70,7 +72,7 @@ export default function Home () {
                 />
             </header>
 
-            <main className="bg-neutral-800 text-white">
+            <main className={martianMono.className+' bg-neutral-800 text-white'}>
                 <Header />
                 <SearchForm handleSubmit={handleFormSubmit} formData={formData} />
                 <div className="grid  gap-2  p-4">
