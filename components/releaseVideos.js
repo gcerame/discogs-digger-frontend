@@ -13,7 +13,7 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
     };
 
     return (
-        <div className="w-10/12 self-center p-2 ">
+        <div className="w-4/5 self-center p-2 ">
             {videos?.map((video, index) => {
                 if (index !== currentVideo) return null;
                 const videoID = video.uri.split('v=').pop();
@@ -25,11 +25,11 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
             })}
             <div className="grid grid-cols-auto align-center justify-center gap-2">
                 <p className="col-span-2 self-center">Video {currentVideo + 1} of {videos.length}</p>
-                <button className="bg-neutral-700 drop-shadow-lg focus:ring  transition-all active:transform
+                <button className="bg-gradient-to-b from-stone-800 drop-shadow-lg focus:ring  transition-all active:transform
                     active:translate-y-1 p-1" onClick={handlePrevious}>
                     Previous
                 </button>
-                <button className="bg-neutral-700 drop-shadow-lg focus:ring  transition-all active:transform
+                <button className="bg-stone-800 drop-shadow-lg focus:ring  transition-all active:transform
                     active:translate-y-1 p-1" onClick={handleNext}>
                     Next
                 </button>
