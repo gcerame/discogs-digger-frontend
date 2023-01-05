@@ -1,4 +1,3 @@
-import { Center, Heading, Text } from "@chakra-ui/react";
 
 export function Header () {
     return (

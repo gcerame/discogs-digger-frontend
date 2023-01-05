@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Release from "../components/release";
 import { Header } from "../components/header";
 import SearchForm from "../components/searchForm";
@@ -11,6 +11,12 @@ export default function Home () {
     const [error, setError] = useState(null);
     const [pagination, setPagination] = useState({});
 
+    useEffect(() => {
+        const savedFormData = JSON.parse(sessionStorage.getItem('formData'));
+        if (savedFormData) {
+            setFormData(savedFormData);
+        }
+    }, []);
     const fetchData = async (searchQuery) => {
         try {
             const APIURL = `http://localhost:3001/search/?${searchQuery}`;
@@ -29,9 +35,9 @@ export default function Home () {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
+
 
         if (Object.values(data).every(x => x === '')) {
             setError({ message: 'Please enter search parameters' });
@@ -42,6 +48,8 @@ export default function Home () {
         const searchQuery = new URLSearchParams(data).toString();
         await fetchData(searchQuery);
         setFormData(data);
+        sessionStorage.setItem('formData', JSON.stringify(data));
+
     };
 
     const mapReleasesToComponent = () => {
@@ -62,43 +70,16 @@ export default function Home () {
                 />
             </header>
 
-            <main>
+            <main className="bg-neutral-800 text-white">
                 <Header />
                 <SearchForm handleSubmit={handleFormSubmit} formData={formData} />
-                <div className="grid align-center justify-center gap-2 w-full">
+                <div className="grid  gap-2  p-4">
                     {error !== null ? (
                         <p>{error.message}</p>
                     ) : (
                         mapReleasesToComponent()
                     )}
                 </div>
-                <nav>
-                    <ul className="pagination">
-                        {pagination.urls && pagination.urls.prev && (
-                            <li>
-                                <Link
-                                    href={`?${new URLSearchParams(formData).toString()}&page=${pagination.page - 1}`}
-                                    as={`/search?${new URLSearchParams(formData).toString()}&page=${pagination.page - 1}`}
-                                >
-                                    <a>Previous</a>
-                                    Certainly! Here is the rest of the updated code:
-
-                                    Copy code
-                                </Link>
-                            </li>
-                        )}
-                        {pagination.urls && pagination.urls.next && (
-                            <li>
-                                <Link
-                                    href={`?${new URLSearchParams(formData).toString()}&page=${pagination.page + 1}`}
-                                    as={`/search?${new URLSearchParams(formData).toString()}&page=${pagination.page + 1}`}
-                                >
-                                    <a>Next</a>
-                                </Link>
-                            </li>
-                        )}
-                    </ul>
-                </nav>
             </main>
         </>
     );

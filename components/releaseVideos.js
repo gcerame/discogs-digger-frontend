@@ -1,5 +1,4 @@
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import { Box, Button } from "@chakra-ui/react";
 import React from "react";
 
 export default function ReleaseVideos ({ videos, releaseTitle }) {
@@ -14,21 +13,27 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
     };
 
     return (
-        <div className="grid">
+        <div className="w-10/12 self-center p-2 ">
             {videos?.map((video, index) => {
                 if (index !== currentVideo) return null;
                 const videoID = video.uri.split('v=').pop();
                 return (
-                    <div className="bg-slate-800">
-                        <LiteYouTubeEmbed wrapperClass="yt-lite"  playerClass="lty-playbtn" id={videoID} key={videoID} title={releaseTitle} />
-                    </div>
+                    <><p className="p-2 text-gray-700">{video.title}</p>
+                        <LiteYouTubeEmbed wrapperClass="yt-lite" playerClass="lty-playbtn"
+                            id={videoID} key={videoID} title={releaseTitle}/></>
                 );
             })}
-            Video {currentVideo + 1} of {videos.length}
-            <button className="bg-slate-500 drop-shadow-lg focus:ring hover:ring transition-all active:transform
-                    active:translate-y-1" onClick={handlePrevious}>Previous</button>
-            <button className="bg-slate-500 drop-shadow-lg focus:ring hover:ring transition-all active:transform
-                    active:translate-y-1" onClick={handleNext}>Next</button>
+            <div className="grid grid-cols-auto align-center justify-center gap-2">
+                <p className="col-span-2 self-center">Video {currentVideo + 1} of {videos.length}</p>
+                <button className="bg-neutral-700 drop-shadow-lg focus:ring  transition-all active:transform
+                    active:translate-y-1 p-1" onClick={handlePrevious}>
+                    Previous
+                </button>
+                <button className="bg-neutral-700 drop-shadow-lg focus:ring  transition-all active:transform
+                    active:translate-y-1 p-1" onClick={handleNext}>
+                    Next
+                </button>
+            </div>
         </div>
     );
 }
