@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Release from "../components/release";
 import { Header } from "../components/header";
 import SearchForm from "../components/searchForm";
-import { Martian_Mono } from "@next/font/google";
+import { Source_Code_Pro } from "@next/font/google";
 import Link from "next/link";
-const martianMono = Martian_Mono({ subsets: ["latin"] });
+const martianMono = Source_Code_Pro({ subsets: ["latin"] });
 
 export default function Home () {
     const [formData, setFormData] = useState({});

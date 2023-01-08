@@ -16,7 +16,7 @@ export default function SearchForm ({ handleSubmit, formData }) {
                 <div className="flex flex-wrap justify-center align-center flex-col gap-1">
                     {inputs.map(input => (
                         <input
-                            className="bg-neutral-600 p-1 border-2 border-black"
+                            className="bg-neutral-600 p-2 border-2 border-black"
                             placeholder={input.placeholder}
                             id={input.id}
                             name={input.name}
@@ -26,8 +26,8 @@ export default function SearchForm ({ handleSubmit, formData }) {
                         />
                     ))}
                     <button
-                        className="bg-neutral-700 p-2 border-1 border-black drop-shadow-lg focus:ring hover:ring
-                         transition-all active:transform active:translate-y-1"
+                        className="bg-neutral-700 p-3 m-2 border-1 border-black drop-shadow-lg focus:ring hover:ring
+                         transition-all active:transform active:translate-y-1 w-fit self-center"
                         type="submit"
                     >
                         Search

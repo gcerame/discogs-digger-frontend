@@ -18,19 +18,19 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
                 if (index !== currentVideo) return null;
                 const videoID = video.uri.split('v=').pop();
                 return (
-                    <><p className="p-2 text-gray-700">{video.title}</p>
-                        <LiteYouTubeEmbed wrapperClass="yt-lite" playerClass="lty-playbtn"
-                            id={videoID} key={videoID} title={releaseTitle}/></>
+                    <><p className="p-2 text-gray-700 font-semibold">{video.title}</p>
+                        <div className="aspect-video drop-shadow-lg"><LiteYouTubeEmbed  playerClass="lty-playbtn"
+                            id={videoID} key={videoID} title={releaseTitle}/></div></>
                 );
             })}
             <div className="grid grid-cols-auto align-center justify-center gap-2">
-                <p className="col-span-2 self-center">Video {currentVideo + 1} of {videos.length}</p>
-                <button className="bg-gradient-to-b from-stone-800 drop-shadow-lg focus:ring  transition-all active:transform
-                    active:translate-y-1 p-1" onClick={handlePrevious}>
+                <p className="col-span-2 self-center p-2 italic">Video {currentVideo + 1} of {videos.length}</p>
+                <button className="bg-stone-800 drop-shadow-lg focus:ring  transition-all active:transform
+                    active:translate-y-1 p-2" onClick={handlePrevious}>
                     Previous
                 </button>
                 <button className="bg-stone-800 drop-shadow-lg focus:ring  transition-all active:transform
-                    active:translate-y-1 p-1" onClick={handleNext}>
+                    active:translate-y-1 p-2" onClick={handleNext}>
                     Next
                 </button>
             </div>

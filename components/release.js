@@ -15,7 +15,7 @@ export default function Release ({ release }) {
                     <p>Want: {release.want} Have: {release.have}</p>
                     <p>For sale: {release.forSale}</p>
                     <p>{release.year}</p>
-                    <button className="p-1 bg-stone-800 active:translate-y-1 p-1">
+                    <button className=" bg-stone-800 active:translate-y-1 w-fit p-1">
                         <Link href={release.discogsURL}>discogs ↗</Link>
                     </button>
 
@@ -23,7 +23,8 @@ export default function Release ({ release }) {
 
                 </div>
                 {release.image &&
-                    <Image src={release.image} width="100" height="100" className=" h-auto max-w-sm"  alt="release cover"/>}
+                    <div className="aspect-square self-center"><Image src={release.image} width="100" height="100"
+                        className="h-auto w-auto " alt="release cover"/></div>}
             </div>
 
             {release.videos ?
