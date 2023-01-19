@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Release from "../components/release";
 import { Header } from "../components/header";
 import SearchForm from "../components/searchForm";
 import { Source_Code_Pro } from "@next/font/google";
@@ -14,7 +13,6 @@ export default function Home () {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [pagination, setPagination] = useState({});
-    const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
@@ -66,13 +64,6 @@ export default function Home () {
         sessionStorage.setItem('formData', JSON.stringify(data));
     };
 
-    const mapReleasesToComponent = () => {
-        return releases.map((release) => {
-            return (
-                <Release release={release} key={release.id}/>
-            );
-        });
-    };
 
     let content;
 
