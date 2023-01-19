@@ -17,7 +17,6 @@ export default function Home () {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
 
-    console.log(searchQuery);
     useEffect(() => {
         const savedFormData = JSON.parse(sessionStorage.getItem('formData'));
         if (savedFormData) {
@@ -34,7 +33,6 @@ export default function Home () {
             const fetchData = async () => {
                 try {
                     const query = new URLSearchParams(searchQuery).toString();
-                    console.log(query, 'query');
                     const APIURL = `http://localhost:3001/search/?${query}`;
                     const response = await fetch(APIURL);
                     const searchResults = await response.json();
