@@ -3,13 +3,15 @@ import Release from "../components/release";
 import { Header } from "../components/header";
 import SearchForm from "../components/searchForm";
 import { Source_Code_Pro } from "@next/font/google";
-import Link from "next/link";
+import Spinner from "../components/spinner";
+
 const martianMono = Source_Code_Pro({ subsets: ["latin"] });
 
 export default function Home () {
     const [formData, setFormData] = useState({});
     const [releases, setReleases] = useState([]);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [pagination, setPagination] = useState({});
 
     useEffect(() => {
@@ -37,18 +39,22 @@ export default function Home () {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setError(null); // clears error so search results are displayed when a new search is made
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
 
 
         if (Object.values(data).every(x => x === '')) {
             setError({ message: 'Please enter search parameters' });
+            setFormData(data);
             return;
         }
-
+        //Removes empty values from the object
         Object.keys(data).forEach((key) => data[key] === '' && delete data[key]);
         const searchQuery = new URLSearchParams(data).toString();
         await fetchData(searchQuery);
+        setLoading(false);
         setFormData(data);
         sessionStorage.setItem('formData', JSON.stringify(data));
 
@@ -72,12 +78,16 @@ export default function Home () {
                 />
             </header>
 
-            <main className={martianMono.className+' bg-neutral-800 text-white'}>
-                <Header />
-                <SearchForm handleSubmit={handleFormSubmit} formData={formData} />
+            <main className={martianMono.className + ' bg-neutral-800 text-white'}>
+                <Header/>
+                <SearchForm handleSubmit={handleFormSubmit} formData={formData}/>
                 <div className="grid  gap-2  p-4">
                     {error !== null ? (
                         <p>{error.message}</p>
+                    ) : loading ? (
+                        <div className="text-center">
+                            <Spinner />
+                        </div>
                     ) : (
                         mapReleasesToComponent()
                     )}
