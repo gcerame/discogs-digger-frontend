@@ -7,7 +7,6 @@ export default function SearchForm ({ handleSubmit, formData }) {
         { placeholder: 'Label', id: 'label', name: 'label', ariaLabel: 'label' },
         { placeholder: 'Country', id: 'country', name: 'country', ariaLabel: 'country' },
         { placeholder: 'Artist', id: 'artist', name: 'artist', ariaLabel: 'artist' },
-        { placeholder: 'Page', id: 'page', name: 'page', ariaLabel: 'page' },
     ];
 
     return (

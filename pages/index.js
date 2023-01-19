@@ -4,6 +4,7 @@ import { Header } from "../components/header";
 import SearchForm from "../components/searchForm";
 import { Source_Code_Pro } from "@next/font/google";
 import Spinner from "../components/spinner";
+import ReleaseList from "../components/releaseList";
 
 const martianMono = Source_Code_Pro({ subsets: ["latin"] });
 
@@ -13,7 +14,10 @@ export default function Home () {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [pagination, setPagination] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState('');
 
+    console.log(searchQuery);
     useEffect(() => {
         const savedFormData = JSON.parse(sessionStorage.getItem('formData'));
         if (savedFormData) {
@@ -21,45 +25,47 @@ export default function Home () {
         }
     }, []);
 
-    const fetchData = async (searchQuery) => {
-        try {
-            //delay 10s to avoid rate limiting
-            await new Promise((resolve) => setTimeout(resolve, 10000));
-            const APIURL = `http://localhost:3001/search/?${searchQuery}`;
-            const response = await fetch(APIURL);
-            const searchResults = await response.json();
-            if (searchResults.error) {
-                setError(searchResults);
-                return;
-            }
-            setPagination(searchResults.pagination);
-            setReleases(searchResults.releases);
-        } catch (e) {
-            setError(e);
+    useEffect(() => {
+        if (searchQuery) {
+
+            setLoading(true);
+            setError(null);
+
+            const fetchData = async () => {
+                try {
+                    const query = new URLSearchParams(searchQuery).toString();
+                    console.log(query, 'query');
+                    const APIURL = `http://localhost:3001/search/?${query}`;
+                    const response = await fetch(APIURL);
+                    const searchResults = await response.json();
+                    if (searchResults.error) {
+                        setError(searchResults);
+                        return;
+                    }
+                    setPagination(searchResults.pagination);
+                    setReleases(searchResults.releases);
+                } catch (e) {
+                    setError(e);
+                }
+                setLoading(false);
+            };
+            fetchData();
         }
-    };
+    }, [searchQuery]);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        setError(null); // clears error so search results are displayed when a new search is made
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
-
-
         if (Object.values(data).every(x => x === '')) {
             setError({ message: 'Please enter search parameters' });
             setFormData(data);
             return;
         }
-        //Removes empty values from the object
         Object.keys(data).forEach((key) => data[key] === '' && delete data[key]);
-        const searchQuery = new URLSearchParams(data).toString();
-        await fetchData(searchQuery);
-        setLoading(false);
         setFormData(data);
+        setSearchQuery(data);
         sessionStorage.setItem('formData', JSON.stringify(data));
-
     };
 
     const mapReleasesToComponent = () => {
@@ -81,7 +87,8 @@ export default function Home () {
             </div>
         );
     } else {
-        content = mapReleasesToComponent();
+        content = <ReleaseList releases={releases} pagination={pagination}
+            setSearchQuery={setSearchQuery} searchQuery={searchQuery} />;
     }
 
     return (
