@@ -18,9 +18,9 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
                 if (index !== currentVideo) return null;
                 const videoID = video.uri.split('v=').pop();
                 return (
-                    <><p className="p-2 text-gray-700 font-semibold">{video.title}</p>
+                    <div key={videoID}><p className="p-2 text-gray-700 font-semibold" >{video.title}</p>
                         <div className="aspect-video drop-shadow-lg"><LiteYouTubeEmbed  playerClass="lty-playbtn"
-                            id={videoID} key={videoID} title={releaseTitle}/></div></>
+                            id={videoID} key={videoID} title={releaseTitle}/></div></div>
                 );
             })}
             <div className="grid grid-cols-auto align-center justify-center gap-2">
