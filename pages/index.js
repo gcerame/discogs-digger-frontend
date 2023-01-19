@@ -23,6 +23,8 @@ export default function Home () {
 
     const fetchData = async (searchQuery) => {
         try {
+            //delay 10s to avoid rate limiting
+            await new Promise((resolve) => setTimeout(resolve, 10000));
             const APIURL = `http://localhost:3001/search/?${searchQuery}`;
             const response = await fetch(APIURL);
             const searchResults = await response.json();
@@ -68,6 +70,20 @@ export default function Home () {
         });
     };
 
+    let content;
+
+    if (error !== null) {
+        content = <p>{error.message}</p>;
+    } else if (loading) {
+        content = (
+            <div className="text-center">
+                <Spinner />
+            </div>
+        );
+    } else {
+        content = mapReleasesToComponent();
+    }
+
     return (
         <>
             <header>
@@ -82,15 +98,7 @@ export default function Home () {
                 <Header/>
                 <SearchForm handleSubmit={handleFormSubmit} formData={formData}/>
                 <div className="grid  gap-2  p-4">
-                    {error !== null ? (
-                        <p>{error.message}</p>
-                    ) : loading ? (
-                        <div className="text-center">
-                            <Spinner />
-                        </div>
-                    ) : (
-                        mapReleasesToComponent()
-                    )}
+                    {content}
                 </div>
             </main>
         </>
