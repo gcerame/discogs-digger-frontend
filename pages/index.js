@@ -31,7 +31,7 @@ export default function Home () {
             const fetchData = async () => {
                 try {
                     const query = new URLSearchParams(searchQuery).toString();
-                    const APIURL = `http://localhost:3001/search/?${query}`;
+                    const APIURL = process.env.NEXT_PUBLIC_API_URL+`/search/?${query}`;
                     const response = await fetch(APIURL);
                     const searchResults = await response.json();
                     if (searchResults.error) {
