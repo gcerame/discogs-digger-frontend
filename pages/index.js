@@ -8,26 +8,17 @@ import ReleaseList from "../components/releaseList";
 const martianMono = Source_Code_Pro({ subsets: ["latin"] });
 
 export default function Home () {
-    const [formData, setFormData] = useState({});
     const [releases, setReleases] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [pagination, setPagination] = useState({});
     const [searchQuery, setSearchQuery] = useState('');
 
-    useEffect(() => {
-        const savedFormData = JSON.parse(sessionStorage.getItem('formData'));
-        if (savedFormData) {
-            setFormData(savedFormData);
-        }
-    }, []);
 
     useEffect(() => {
         if (searchQuery) {
-
             setLoading(true);
             setError(null);
-
             const fetchData = async () => {
                 try {
                     const query = new URLSearchParams(searchQuery).toString();
@@ -48,22 +39,6 @@ export default function Home () {
             fetchData();
         }
     }, [searchQuery]);
-
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData);
-        if (Object.values(data).every(x => x === '')) {
-            setError({ message: 'Please enter search parameters' });
-            setFormData(data);
-            return;
-        }
-        Object.keys(data).forEach((key) => data[key] === '' && delete data[key]);
-        setFormData(data);
-        setSearchQuery(data);
-        sessionStorage.setItem('formData', JSON.stringify(data));
-    };
-
 
     let content;
 
@@ -92,7 +67,8 @@ export default function Home () {
 
             <main className={martianMono.className + ' bg-neutral-800 text-white'}>
                 <Header/>
-                <SearchForm handleSubmit={handleFormSubmit} formData={formData}/>
+                <SearchForm
+                    setSearchQuery={setSearchQuery}/>
                 <div className="grid  gap-2  p-4">
                     {content}
                 </div>
