@@ -16,26 +16,30 @@ export default function Home () {
 
 
     useEffect(() => {
+        console.log('useEffect fetchData called');
+        const fetchData = async () => {
+            try {
+                const query = new URLSearchParams(searchQuery).toString();
+                const APIURL = process.env.NEXT_PUBLIC_API_URL+`/search/?${query}`;
+                const response = await fetch(APIURL);
+                const searchResults = await response.json();
+
+                if (searchResults.error) {
+                    setError(searchResults);
+                    return;
+                }
+
+                setPagination(searchResults.pagination);
+                setReleases(searchResults.releases);
+            } catch (e) {
+                setError(e);
+            }
+            setLoading(false);
+        };
+
         if (searchQuery) {
             setLoading(true);
             setError(null);
-            const fetchData = async () => {
-                try {
-                    const query = new URLSearchParams(searchQuery).toString();
-                    const APIURL = process.env.NEXT_PUBLIC_API_URL+`/search/?${query}`;
-                    const response = await fetch(APIURL);
-                    const searchResults = await response.json();
-                    if (searchResults.error) {
-                        setError(searchResults);
-                        return;
-                    }
-                    setPagination(searchResults.pagination);
-                    setReleases(searchResults.releases);
-                } catch (e) {
-                    setError(e);
-                }
-                setLoading(false);
-            };
             fetchData();
         }
     }, [searchQuery]);
