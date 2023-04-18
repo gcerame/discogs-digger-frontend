@@ -10,16 +10,18 @@ export default function ReleaseInfo ({ release }) {
                 <p>Want: {release.want} Have: {release.have}</p>
                 <p>For sale: {release.forSale}</p>
                 <p>{release.year}</p>
+                <p>Lowest price on marketplace {release.lowestPrice} €</p>
                 <button className=" bg-stone-800 active:translate-y-1 w-fit p-1">
                     <Link href={release.discogsURL}>discogs ↗</Link>
                 </button>
 
 
-
             </div>
             {release.image &&
-                <div className="aspect-square self-center"><Image src={release.image} width="100" height="100"
-                    className="h-auto w-auto " alt="release cover"/></div>}
+                <div className="aspect-square self-center">
+                    <Image src={release.image} width="100" height="100"
+                        className="h-auto w-auto shadow-2xl" alt="release cover"/>
+                </div>}
         </div>
     );
 }
