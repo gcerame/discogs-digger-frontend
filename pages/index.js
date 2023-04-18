@@ -16,7 +16,6 @@ export default function Home () {
 
 
     useEffect(() => {
-        console.log('useEffect fetchData called');
         const fetchData = async () => {
             try {
                 const query = new URLSearchParams(searchQuery).toString();
