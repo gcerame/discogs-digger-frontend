@@ -24,7 +24,7 @@ export default function ReleaseList ({ releases, pagination, searchQuery, setSea
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col p-2 gap-2">
             <PageNavigation handlePreviousPage={handlePreviousPage}
                 handleNextPage={handleNextPage} pagination={pagination}/>
             {mapReleasesToComponent()}

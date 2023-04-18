@@ -69,7 +69,7 @@ export default function Home () {
                 />
             </header>
 
-            <main className={martianMono.className + ' bg-neutral-800 text-white'}>
+            <main className={martianMono.className + ' bg-neutral-500 text-white'}>
                 <Header/>
                 <SearchForm
                     setSearchQuery={setSearchQuery}/>
