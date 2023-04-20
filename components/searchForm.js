@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function SearchForm ({ handleSubmit, setSearchQuery }) {
+export default function SearchForm ({ setSearchQuery }) {
     const [formData, setFormData] = useState({});
 
     useEffect(() => {
