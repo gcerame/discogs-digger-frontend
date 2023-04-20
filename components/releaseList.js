@@ -4,6 +4,7 @@ import PageNavigation from "./pageNavigation";
 export default function ReleaseList ({ releases, pagination, searchQuery, setSearchQuery }) {
 
     const mapReleasesToComponent = () => {
+        if (!releases || releases.length === 0) return <p>No releases found.</p>;
         return releases.map((release) => {
             return (
                 <Release release={release} key={release.id}/>
@@ -12,7 +13,6 @@ export default function ReleaseList ({ releases, pagination, searchQuery, setSea
     };
     const handlePreviousPage = () => {
         if (pagination.page > 1) {
-            //Use setSearchQuery to update the searchQuery state and change the page number
             setSearchQuery({ ...searchQuery, page: pagination.page - 1 });
         }
     };

@@ -53,7 +53,7 @@ export default function Home () {
                 <Spinner />
             </div>
         );
-    } else {
+    } else if(releases.length > 0) {
         content = <ReleaseList releases={releases} pagination={pagination}
             setSearchQuery={setSearchQuery} searchQuery={searchQuery} />;
     }
