@@ -1,5 +1,6 @@
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import React from "react";
+import Button from "./button";
 
 export default function ReleaseVideos ({ videos, releaseTitle }) {
     const [currentVideo, setCurrentVideo] = React.useState(0);
@@ -32,14 +33,8 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
             })}
             <div className="grid grid-cols-auto align-center justify-center gap-2">
                 <p className="col-span-2 self-center p-2 italic">Video {currentVideo + 1} of {videos.length}</p>
-                <button className="bg-stone-800 drop-shadow-lg focus:ring  transition-all active:transform
-                    active:translate-y-1 p-2" onClick={handlePrevious}>
-                    Previous
-                </button>
-                <button className="bg-stone-800 drop-shadow-lg focus:ring  transition-all active:transform
-                    active:translate-y-1 p-2" onClick={handleNext}>
-                    Next
-                </button>
+                <Button text="Previous" onClick={handlePrevious}></Button>
+                <Button text="Next" onClick={handleNext}></Button>
             </div>
         </div>
     );

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Button from "./button";
 
 export default function SearchForm ({ setSearchQuery }) {
     const [formData, setFormData] = useState({});
@@ -49,13 +50,7 @@ export default function SearchForm ({ setSearchQuery }) {
                             key={input.name}
                         />
                     ))}
-                    <button
-                        className="bg-neutral-700 p-3 m-2 border-1 border-black drop-shadow-lg focus:ring hover:ring
-                         transition-all active:transform active:translate-y-1 w-fit self-center"
-                        type="submit"
-                    >
-                        Search
-                    </button>
+                    <Button type="submit" text="Search" />
                 </div>
             </form>
         </div>

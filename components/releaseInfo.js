@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Button from "./button";
 
 export default function ReleaseInfo ({ release }) {
     return (
@@ -26,9 +27,9 @@ export default function ReleaseInfo ({ release }) {
 
                 <p>For sale: {release.forSale}</p>
                 <p>Lowest price on marketplace {release.lowestPrice} €</p>
-                <button className=" bg-stone-800 active:translate-y-1 w-fit p-1 m-1.5 self-center">
-                    <Link href={release.discogsURL}>discogs↗</Link>
-                </button>
+                <Button className=" bg-stone-800 active:translate-y-1 w-fit p-1 m-1.5 self-center"
+                    text={<Link href={release.discogsURL}>discogs↗</Link>}>
+                </Button>
 
 
             </div>
