@@ -13,14 +13,21 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
     };
 
     return (
-        <div className="w-4/5 self-center p-2 ">
+        <div className=" flex-col flex-wrap grow self-center m-auto">
             {videos?.map((video, index) => {
                 if (index !== currentVideo) return null;
                 const videoID = video.uri.split('v=').pop();
                 return (
-                    <div key={videoID}><p className="p-2 text-gray-700 font-semibold" >{video.title}</p>
-                        <div className="aspect-video drop-shadow-lg"><LiteYouTubeEmbed  playerClass="lty-playbtn"
-                            id={videoID} key={videoID} title={releaseTitle}/></div></div>
+                    <div className="text-center p-2" key={videoID}>
+                        <p className=" text-gray-700  mx-auto p-2 text-xl capitalize">
+                            {video.title.toUpperCase()}
+                        </p>
+                        <div className="aspect-video drop-shadow-lg max-w-sm mx-auto" >
+                            <LiteYouTubeEmbed
+                                playerClass="lty-playbtn" id={videoID} key={videoID} title={releaseTitle}/>
+                        </div>
+                    </div>
+
                 );
             })}
             <div className="grid grid-cols-auto align-center justify-center gap-2">
