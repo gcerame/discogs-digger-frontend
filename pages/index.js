@@ -18,8 +18,9 @@ export default function Home () {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const query = new URLSearchParams(searchQuery).toString();
-                const APIURL = process.env.NEXT_PUBLIC_API_URL+`/search/?${query}`;
+                let query = new URLSearchParams(searchQuery).toString();
+                query += '&type=master';
+                const APIURL = process.env.NEXT_PUBLIC_API_URL + `/search/?${query}`;
                 const response = await fetch(APIURL);
                 const searchResults = await response.json();
 
@@ -50,12 +51,12 @@ export default function Home () {
     } else if (loading) {
         content = (
             <div className="text-center">
-                <Spinner />
+                <Spinner/>
             </div>
         );
-    } else if(releases.length > 0) {
+    } else if (releases.length > 0) {
         content = <ReleaseList releases={releases} pagination={pagination}
-            setSearchQuery={setSearchQuery} searchQuery={searchQuery} />;
+            setSearchQuery={setSearchQuery} searchQuery={searchQuery}/>;
     }
 
     return (
