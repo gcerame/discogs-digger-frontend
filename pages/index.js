@@ -72,7 +72,9 @@ export default function Home () {
             <main className={martianMono.className + ' bg-neutral-500 text-white'}>
                 <Header/>
                 <SearchForm
-                    setSearchQuery={setSearchQuery}/>
+                    setSearchQuery={setSearchQuery}
+                    setError={setError}
+                />
                 <div className="grid  gap-2  p-4">
                     {content}
                 </div>

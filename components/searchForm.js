@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from "./button";
 
-export default function SearchForm ({ setSearchQuery }) {
+export default function SearchForm ({ setSearchQuery, setError }) {
     const [formData, setFormData] = useState({});
 
     useEffect(() => {
