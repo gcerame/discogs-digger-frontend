@@ -70,15 +70,26 @@ async function fetchData (searchQuery, setError, setLoading, setPagination, setR
 function getContent (error, loading, releases, pagination, setSearchQuery, searchQuery) {
     if (error !== null) {
         return <p>{error.message}</p>;
-    } else if (loading) {
+    }
+
+    if (loading) {
         return (
             <div className="text-center">
-                <Spinner/>
+                <Spinner />
             </div>
         );
-    } else if (releases.length > 0) {
-        return <ReleaseList releases={releases} pagination={pagination}
-            setSearchQuery={setSearchQuery} searchQuery={searchQuery}/>;
     }
-    return null;
+
+    if (releases.length === 0) {
+        return null;
+    }
+    
+    return (
+        <ReleaseList
+            releases={releases}
+            pagination={pagination}
+            setSearchQuery={setSearchQuery}
+            searchQuery={searchQuery}
+        />
+    );
 }

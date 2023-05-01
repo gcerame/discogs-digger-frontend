@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import React from "react";
 import Button from "./button";
@@ -13,13 +14,36 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
         setCurrentVideo((currentVideo + 1) % videos.length);
     };
 
+    const videoVariants = {
+        enter: {
+            opacity: 0,
+            scale: 0.8,
+        },
+        center: {
+            opacity: 1,
+            scale: 1,
+        },
+        exit: {
+            opacity: 0,
+            scale: 1.2,
+        },
+    };
+
     return (
         <div className=" flex-col flex-wrap grow self-center m-auto">
             {videos?.map((video, index) => {
                 if (index !== currentVideo) return null;
                 const videoID = video.uri.split('v=').pop();
                 return (
-                    <div className="text-center p-2" key={videoID}>
+                    <motion.div
+                        className="text-center p-2"
+                        key={videoID}
+                        variants={videoVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ duration: 0.3 }}
+                    >
                         <p className=" text-gray-700  mx-auto p-2 text-xl capitalize">
                             {video.title.toUpperCase()}
                         </p>
@@ -27,7 +51,7 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
                             <LiteYouTubeEmbed
                                 playerClass="lty-playbtn" id={videoID} key={videoID} title={releaseTitle}/>
                         </div>
-                    </div>
+                    </motion.div>
 
                 );
             })}
