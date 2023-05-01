@@ -83,7 +83,7 @@ function getContent (error, loading, releases, pagination, setSearchQuery, searc
     if (releases.length === 0) {
         return null;
     }
-
+    
     return (
         <ReleaseList
             releases={releases}
