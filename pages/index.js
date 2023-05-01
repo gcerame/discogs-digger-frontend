@@ -4,7 +4,6 @@ import SearchForm from "../components/searchForm";
 import { Source_Code_Pro } from "@next/font/google";
 import Spinner from "../components/spinner";
 import ReleaseList from "../components/releaseList";
-
 const martianMono = Source_Code_Pro({ subsets: ["latin"] });
 
 export default function Home () {
@@ -14,50 +13,15 @@ export default function Home () {
     const [pagination, setPagination] = useState({});
     const [searchQuery, setSearchQuery] = useState('');
 
-
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                let query = new URLSearchParams(searchQuery).toString();
-                query += '&type=master';
-                const APIURL = process.env.NEXT_PUBLIC_API_URL + `/search/?${query}`;
-                const response = await fetch(APIURL);
-                const searchResults = await response.json();
-
-                if (searchResults.error) {
-                    setError(searchResults);
-                    return;
-                }
-
-                setPagination(searchResults.pagination);
-                setReleases(searchResults.releases);
-            } catch (e) {
-                setError(e);
-            }
-            setLoading(false);
-        };
-
         if (searchQuery) {
             setLoading(true);
             setError(null);
-            fetchData();
+            fetchData(searchQuery, setError, setLoading, setPagination, setReleases);
         }
     }, [searchQuery]);
 
-    let content;
-
-    if (error !== null) {
-        content = <p>{error.message}</p>;
-    } else if (loading) {
-        content = (
-            <div className="text-center">
-                <Spinner/>
-            </div>
-        );
-    } else if (releases.length > 0) {
-        content = <ReleaseList releases={releases} pagination={pagination}
-            setSearchQuery={setSearchQuery} searchQuery={searchQuery}/>;
-    }
+    const content = getContent(error, loading, releases, pagination, setSearchQuery, searchQuery);
 
     return (
         <>
@@ -81,4 +45,40 @@ export default function Home () {
             </main>
         </>
     );
+}
+async function fetchData (searchQuery, setError, setLoading, setPagination, setReleases) {
+    try {
+        let query = new URLSearchParams(searchQuery).toString();
+        query += '&type=master';
+        const APIURL = process.env.NEXT_PUBLIC_API_URL + `/search/?${query}`;
+        const response = await fetch(APIURL);
+        const searchResults = await response.json();
+
+        if (searchResults.error) {
+            setError(searchResults);
+            return;
+        }
+
+        setPagination(searchResults.pagination);
+        setReleases(searchResults.releases);
+    } catch (e) {
+        setError(e);
+    }
+    setLoading(false);
+}
+
+function getContent (error, loading, releases, pagination, setSearchQuery, searchQuery) {
+    if (error !== null) {
+        return <p>{error.message}</p>;
+    } else if (loading) {
+        return (
+            <div className="text-center">
+                <Spinner/>
+            </div>
+        );
+    } else if (releases.length > 0) {
+        return <ReleaseList releases={releases} pagination={pagination}
+            setSearchQuery={setSearchQuery} searchQuery={searchQuery}/>;
+    }
+    return null;
 }
