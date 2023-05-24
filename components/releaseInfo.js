@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import Button from "./button";
+import ReleaseTracklist from "./releaseTracklist";
+import React from "react";
 
 export default function ReleaseInfo ({ release }) {
     return (
-        <div className="flex flex-col  place-content-around bg-stone-500 p-2 rounded w-1/3 h-full self-center">
+        <div className="flex flex-col  place-content-around bg-stone-500 p-2 rounded w-full md:w-1/3 self-center noise">
             <div className="flex flex-col place-content-around bg-stone-600 text-center p-2
-                rounded w-full h-full self-center">
+                rounded w-full self-center">
                 {release.image &&
                 <div className="aspect-square self-center">
                     <Image src={release.image} width="100" height="100"
@@ -17,6 +19,7 @@ export default function ReleaseInfo ({ release }) {
                 <span className="text-lg">{release.artists[0].name}</span>
             
             </div>
+            <ReleaseTracklist release={release}/>
 
             <div className="flex flex-col text-center p-2">
 

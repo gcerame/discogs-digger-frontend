@@ -2,8 +2,9 @@ import { motion } from "framer-motion";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import React from "react";
 import Button from "./button";
+import ReleaseTracklist from "./releaseTracklist";
 
-export default function ReleaseVideos ({ videos, releaseTitle }) {
+export default function ReleaseVideos ({ videos, release }) {
     const [currentVideo, setCurrentVideo] = React.useState(0);
 
     const handlePrevious = () => {
@@ -30,13 +31,14 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
     };
 
     return (
-        <div className=" flex-col flex-wrap grow self-center m-auto">
+
+        <div className=" flex-col flex-wrap mx-auto w-full">
             {videos?.map((video, index) => {
                 if (index !== currentVideo) return null;
                 const videoID = video.uri.split('v=').pop();
                 return (
                     <motion.div
-                        className="text-center p-2"
+                        className="text-center justify-center"
                         key={videoID}
                         variants={videoVariants}
                         initial="enter"
@@ -44,19 +46,19 @@ export default function ReleaseVideos ({ videos, releaseTitle }) {
                         exit="exit"
                         transition={{ duration: 0.3 }}
                     >
-                        <p className=" text-gray-700  mx-auto p-2 text-xl capitalize">
+                        <p className=" text-gray-700  mx-auto p-2 text-xl capitalize ">
                             {video.title.toUpperCase()}
                         </p>
-                        <div className="aspect-video drop-shadow-lg max-w-sm mx-auto" >
+                        <div className="aspect-video drop-shadow-lg max-w-sm md:max-w-lg mx-auto">
                             <LiteYouTubeEmbed
-                                playerClass="lty-playbtn" id={videoID} key={videoID} title={releaseTitle}/>
+                                playerClass="lty-playbtn" id={videoID} key={videoID} title={release.title}/>
                         </div>
                     </motion.div>
 
                 );
             })}
             <div className="grid grid-cols-auto align-center justify-center gap-2">
-                <p className="col-span-2 self-center p-2 italic">Video {currentVideo + 1} of {videos.length}</p>
+                <p className="col-span-2  p-2 italic">Video {currentVideo + 1} of {videos.length}</p>
                 <Button text="Previous" onClick={handlePrevious}></Button>
                 <Button text="Next" onClick={handleNext}></Button>
             </div>
