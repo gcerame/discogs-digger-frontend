@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Header } from "../components/header";
 import SearchForm from "../components/searchForm";
-import { Source_Code_Pro } from "@next/font/google";
+import { Source_Code_Pro } from "next/font/google";
 import Spinner from "../components/spinner";
 import ReleaseList from "../components/releaseList";
+import fetchData from "./service";
 const martianMono = Source_Code_Pro({ subsets: ["latin"] });
 
 export default function Home () {
+
     const [releases, setReleases] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -20,7 +22,32 @@ export default function Home () {
             fetchData(searchQuery, setError, setLoading, setPagination, setReleases);
         }
     }, [searchQuery]);
+    function getContent (error, loading, releases, pagination, setSearchQuery, searchQuery) {
+        if (error !== null) {
+            return <p>{error.message}</p>;
+        }
 
+        if (loading) {
+            return (
+                <div className="text-center">
+                    <Spinner />
+                </div>
+            );
+        }
+
+        if (releases.length === 0) {
+            return null;
+        }
+
+        return (
+            <ReleaseList
+                releases={releases}
+                pagination={pagination}
+                setSearchQuery={setSearchQuery}
+                searchQuery={searchQuery}
+            />
+        );
+    }
     const content = getContent(error, loading, releases, pagination, setSearchQuery, searchQuery);
 
     return (
@@ -44,52 +71,5 @@ export default function Home () {
                 </div>
             </main>
         </>
-    );
-}
-async function fetchData (searchQuery, setError, setLoading, setPagination, setReleases) {
-    try {
-        let query = new URLSearchParams(searchQuery).toString();
-        query += '&type=master';
-        const APIURL = process.env.NEXT_PUBLIC_API_URL + `/search/?${query}`;
-        const response = await fetch(APIURL);
-        const searchResults = await response.json();
-
-        if (searchResults.error) {
-            setError(searchResults);
-            return;
-        }
-
-        setPagination(searchResults.pagination);
-        setReleases(searchResults.releases);
-    } catch (e) {
-        setError(e);
-    }
-    setLoading(false);
-}
-
-function getContent (error, loading, releases, pagination, setSearchQuery, searchQuery) {
-    if (error !== null) {
-        return <p>{error.message}</p>;
-    }
-
-    if (loading) {
-        return (
-            <div className="text-center">
-                <Spinner />
-            </div>
-        );
-    }
-
-    if (releases.length === 0) {
-        return null;
-    }
-    
-    return (
-        <ReleaseList
-            releases={releases}
-            pagination={pagination}
-            setSearchQuery={setSearchQuery}
-            searchQuery={searchQuery}
-        />
     );
 }
