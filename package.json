@@ -10,7 +10,8 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "@next/font": "^13.1.1",
+    "@radix-ui/react-collapsible": "^1.0.3",
+    "@radix-ui/react-icons": "^1.3.0",
     "framer-motion": "10.12.10",
     "next": "^13.4.2",
     "react": "^18.2.0",

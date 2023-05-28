@@ -1,13 +1,22 @@
+import * as Collapsible from '@radix-ui/react-collapsible';
+
 export default function ReleaseTracklist ({ release }) {
     return (
-        <div className="backdrop-blur-xl bg-neutral-500 items-center justify-center noise">
-            {release.trackList?.map((track, index) => {
-                return (
-                    <p key={index} className="text-center p-2  capitalize max-w-xl text-neutral-100">
-                        {track.position} {track.title}
-                    </p>
-                );
-            })}
+        <div className="backdrop-blur-xl bg-neutral-500 items-center justify-center noise text-center">
+            <Collapsible.Root>
+                <Collapsible.Trigger className="text-center">Tracklist +</Collapsible.Trigger>
+                {release.trackList?.map((track, index) => {
+                    return (
+                        <>
+                            <Collapsible.Content className="CollapsibleContent">
+                                <p key={index} className="text-center p-2  capitalize max-w-xl text-neutral-100">
+                                    {track.position} {track.title}
+                                </p>
+                            </Collapsible.Content>
+                        </>
+                    )
+                })}
+            </Collapsible.Root>
         </div>
     )
 }
