@@ -1,10 +1,11 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
+import Button from "./button";
 
 export default function ReleaseTracklist ({ release }) {
     return (
         <div className="backdrop-blur-xl bg-neutral-500 items-center justify-center noise text-center">
             <Collapsible.Root>
-                <Collapsible.Trigger className="text-center">Tracklist +</Collapsible.Trigger>
+                <Collapsible.Trigger className="text-center"><Button text="Tracklist"/></Collapsible.Trigger>
                 {release.trackList?.map((track, index) => {
                     return (
                         <>
