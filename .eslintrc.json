@@ -5,5 +5,8 @@
     "object-curly-spacing": ["error", "always"],
     "indent": ["error", 4],
     "max-len": ["error", 120]
+  },
+  "env": {
+    "jest": true
   }
 }
