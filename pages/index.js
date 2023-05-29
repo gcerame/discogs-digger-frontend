@@ -27,14 +27,6 @@ export default function Home () {
             return <p>{error.message}</p>;
         }
 
-        if (loading) {
-            return (
-                <div className="text-center">
-                    <Spinner />
-                </div>
-            );
-        }
-
         if (releases.length === 0) {
             return null;
         }
