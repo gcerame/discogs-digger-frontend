@@ -25,6 +25,7 @@ export default function SearchForm ({ setSearchQuery, setError }) {
         const data = Object.fromEntries(formData);
         if (Object.values(data).every(x => x === '')) {
             setError({ message: 'Please enter search parameters' });
+            sessionStorage.setItem('formData', JSON.stringify(data));
             setFormData(data);
             return;
         }
@@ -37,7 +38,7 @@ export default function SearchForm ({ setSearchQuery, setError }) {
 
     return (
         <div className="search-form p-6">
-            <form onSubmit={handleFormSubmit}>
+            <form onSubmit={handleFormSubmit} title="searchForm">
                 <div className="flex flex-wrap justify-center align-center flex-col gap-1">
                     {inputs.map(input => (
                         <input

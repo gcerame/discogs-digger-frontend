@@ -17,7 +17,7 @@ export default function ReleaseInfo ({ release }) {
                 </div>}
                 <span className="italic text-xl">{release.title}</span>
                 <p>{release.year}</p>
-                <span className="text-lg">{release.artists[0].name}</span>
+                <span className="text-lg">{release.artists[0]?.name}</span>
             </div>
             <ReleaseTracklist release={release}/>
 
