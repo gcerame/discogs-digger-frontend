@@ -4,7 +4,6 @@ import ReleaseInfo from "./releaseInfo";
 import { motion } from "framer-motion";
 
 export default function Release ({ release }) {
-
     return (
         <motion.div
             className="bg-stone-400 text-gray-300 drop-shadow-2xl flex gap-5 p-2 justify-between noise flex-wrap
@@ -15,11 +14,9 @@ export default function Release ({ release }) {
 
             }}
             transition={{ delay: 0.5 }}
-
         >
             <ReleaseInfo release={release}/>
             {release.videos ?
-
                 <ReleaseVideos videos={release.videos} release={release} />
                 :
                 <p className="self-center mx-auto italic text-neutral-800 text-lg w-full text-center m-1">
