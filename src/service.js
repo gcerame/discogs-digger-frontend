@@ -2,7 +2,7 @@ export default async function fetchData (searchQuery, setError, setLoading, setP
     try {
         let query = new URLSearchParams(searchQuery).toString();
         query += '&type=master';
-        const APIURL = process.env.NEXT_PUBLIC_API_URL + `/search/?${query}`;
+        const APIURL = process.env.API_URL + `/search/?${query}`;
         const response = await fetch(APIURL);
         const searchResults = await response.json();
 
