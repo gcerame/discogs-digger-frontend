@@ -4,7 +4,7 @@ import SearchForm from "../components/searchForm";
 import { Source_Code_Pro } from "next/font/google";
 import Spinner from "../components/spinner";
 import ReleaseList from "../components/releaseList";
-import fetchData from "./service";
+import fetchData from "../src/service";
 const martianMono = Source_Code_Pro({ subsets: ["latin"] });
 
 export default function Home () {
