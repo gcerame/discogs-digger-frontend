@@ -9,7 +9,7 @@ export default function ReleaseTracklist ({ release }) {
                 {release.trackList?.map((track, index) => {
                     return (
                         <>
-                            <Collapsible.Content className="CollapsibleContent">
+                            <Collapsible.Content>
                                 <p key={index} className="text-center p-2  capitalize max-w-xl text-neutral-100">
                                     {track.position} {track.title}
                                 </p>
