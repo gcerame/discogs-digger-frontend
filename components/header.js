@@ -7,7 +7,7 @@ export function Header () {
 
         }}>
             <div className="flex align-center justify-center px-4 py-6 font-normal flex-wrap">
-                <h1 className="text-5xl text-shadow ">
+                <h1 className="text-4xl text-shadow ">
                     <span className="text-neutral-800">discogs</span>digger
                 </h1>
             </div>
