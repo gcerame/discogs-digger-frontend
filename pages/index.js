@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Header } from "../components/header";
 import SearchForm from "../components/searchForm";
 import { Source_Code_Pro } from "next/font/google";
-import Spinner from "../components/spinner";
 import ReleaseList from "../components/releaseList";
 import fetchData from "../src/service";
 const martianMono = Source_Code_Pro({ subsets: ["latin"] });
@@ -28,7 +27,7 @@ export default function Home () {
         }
 
         if (releases.length === 0) {
-            return null;
+            return <p>No releases found matching your search</p>;
         }
 
         return (
