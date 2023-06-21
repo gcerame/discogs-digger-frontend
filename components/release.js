@@ -10,10 +10,7 @@ export default function Release ({ release }) {
             items-center md:flex-nowrap"
             animate={{
                 opacity: [0, 1],
-                x: [-1000, 0],
-
             }}
-            transition={{ delay: 0.5 }}
         >
             <ReleaseInfo release={release}/>
             {release.videos ?
