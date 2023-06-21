@@ -27,7 +27,7 @@ export default function Home () {
         }
 
         if (releases.length === 0) {
-            return <p>No releases found matching your search</p>;
+            return null;
         }
 
         return (
